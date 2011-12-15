@@ -160,7 +160,7 @@ var Analytics = AnalyticsBase.extend({
 		'category STRING NOT NULL, ' +
 		'action STRING NOT NULL, ' +
 		'label STRING NULL, ' +
-		'value INTEGER NOT NULL);');
+		'value INTEGER NULL);');
 		
 		var rowCount = this._db.execute('SELECT COUNT(*) FROM events');
 	    while (rowCount.isValidRow()) {
@@ -322,4 +322,8 @@ StringBuilder.prototype.clear = function (){
 // Converts this instance to a String.
 StringBuilder.prototype.toString = function (){
     return this.strings.join('');
+};
+
+exports.initialize = function(args){
+	return new Analytics(args);
 };

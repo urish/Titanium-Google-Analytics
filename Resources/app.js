@@ -2,8 +2,9 @@
 Titanium.UI.setBackgroundColor('#000');
 
 //Set up analytics
-Titanium.include('analytics.js');
-var analytics = new Analytics('UA-XXXXXX-X');
+var GoogleAnalytics = require('analytics');
+Titanium.API.info(GoogleAnalytics.initialize);
+var analytics = GoogleAnalytics.initialize('UA-27737297-1');
 // Call the next function if you want to reset the analytics to a new first time visit.
 // This is useful for development only and should not go into a production app.
 //analytics.reset();
@@ -49,6 +50,7 @@ var win1 = Titanium.UI.createWindow({
 // track page view on focus
 win1.addEventListener('focus', function(e){
 	Titanium.App.Analytics.trackPageview('/win1');
+	Titanium.App.Analytics.trackEvent('window-switch','open','Window 1');
 });
 
 var tab1 = Titanium.UI.createTab({  
