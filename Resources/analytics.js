@@ -128,11 +128,11 @@ var Analytics = AnalyticsBase.extend({
 		this.enabled = false;
 	},
 	
-	trackPageview: function(pageUrl){
+	trackPageview: function(pageUrl, pageTitle){
 		
 		if (this._session && this.enabled) {
 					
-			this._createEvent(this._PAGEVIEW, pageUrl, null, -1);
+			this._createEvent(this._PAGEVIEW, pageUrl, pageTitle, -1);
 		}
 	},
 	
@@ -273,7 +273,10 @@ var Analytics = AnalyticsBase.extend({
 		
 		if (event.category == this._PAGEVIEW) {
 		    //just page tracking
-		    path.append('&utmp=').append(event.action);
+		    path.append('&utmp=').append(encodeURIComponent(event.action));
+		    if (event.label) {
+			    path.append('&utmdt=').append(encodeURIComponent(event.label));
+		    }
 	    } else {
 		    //event tracking
 		    var tmpValue = (event.value > 0) ? event.value : 1;
